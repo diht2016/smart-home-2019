@@ -20,4 +20,10 @@ public class Light {
     public void setOn(boolean on) {
         isOn = on;
     }
+    
+    public void turnOff() {
+        setOn(false);
+        SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, getId());
+        SensorCommandExecutor.executeCommand(command);
+    }
 }
