@@ -24,4 +24,17 @@ public class Room {
     public String getName() {
         return name;
     }
+
+    public void execute(Action action) {
+        if (action.checkArgs(Light.class, Room.class)) {
+            for (Light light : lights) {
+                action.run(light, this);
+            }
+        }
+        if (action.checkArgs(Door.class, Room.class)) {
+            for (Door door : doors) {
+                action.run(door, this);
+            }
+        }
+    }
 }

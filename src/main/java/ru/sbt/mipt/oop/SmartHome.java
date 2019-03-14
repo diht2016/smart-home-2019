@@ -21,12 +21,21 @@ public class SmartHome {
     public Collection<Room> getRooms() {
         return rooms;
     }
+    
+    public void execute(Action action) {
+        for (Room room : rooms) {
+            room.execute(action);
+        }
+    }
 
     public void turnOffAllLights() {
-        for (Room homeRoom : getRooms()) {
-            for (Light light : homeRoom.getLights()) {
+        execute(new Action<Light, Room>() {
+            public boolean checkArgs(Class t1, Class t2) {
+                return t1 == Light.class && t2 == Room.class;
+            }
+            public void run(Light light, Room room) {
                 light.turnOff();
             }
-        }
+        });
     }
 }

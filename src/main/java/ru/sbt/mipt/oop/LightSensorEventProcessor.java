@@ -7,13 +7,16 @@ public class LightSensorEventProcessor implements SensorEventProcessor {
     public void processEvent(SmartHome smartHome, SensorEvent event) {
         if (!isLightEvent(event)) return;
         
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
+        smartHome.execute(new Action<Light, Room>() {
+            public boolean checkArgs(Class t1, Class t2) {
+                return t1 == Light.class && t2 == Room.class;
+            }
+            public void run(Light light, Room room) {
                 if (light.getId().equals(event.getObjectId())) {
                     setLightState(room, light, event.getType() == LIGHT_ON);
                 }
             }
-        }
+        });
     }
 
     private static void setLightState(Room room, Light light, boolean state) {

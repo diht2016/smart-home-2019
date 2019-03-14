@@ -1,7 +1,10 @@
 ru\sbt\mipt\oop\FakeSensorEventGenerator.class
 ru\sbt\mipt\oop\SensorCommandExecutor.class
+ru\sbt\mipt\oop\SmartHome$1.class
+ru\sbt\mipt\oop\Action.class
 ru\sbt\mipt\oop\JsonFileSmartHomeLoader.class
 ru\sbt\mipt\oop\SensorEvent.class
+ru\sbt\mipt\oop\LightSensorEventProcessor$1.class
 ru\sbt\mipt\oop\Light.class
 ru\sbt\mipt\oop\LightSensorEventProcessor.class
 ru\sbt\mipt\oop\CommandType.class
@@ -11,9 +14,11 @@ ru\sbt\mipt\oop\SmartHome.class
 ru\sbt\mipt\oop\Application.class
 ru\sbt\mipt\oop\DoorSensorEventProcessor.class
 ru\sbt\mipt\oop\SensorCommand.class
+ru\sbt\mipt\oop\DoorSensorEventProcessor$1.class
 ru\sbt\mipt\oop\SensorEventSource.class
 ru\sbt\mipt\oop\SensorEventType.class
 ru\sbt\mipt\oop\SmartHomeLoader.class
 ru\sbt\mipt\oop\SensorEventProcessor.class
 ru\sbt\mipt\oop\HallDoorSensorEventProcessor.class
 ru\sbt\mipt\oop\Room.class
+ru\sbt\mipt\oop\HallDoorSensorEventProcessor$1.class

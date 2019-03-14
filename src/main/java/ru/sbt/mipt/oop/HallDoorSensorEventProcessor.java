@@ -6,16 +6,21 @@ public class HallDoorSensorEventProcessor implements SensorEventProcessor {
     public void processEvent(SmartHome smartHome, SensorEvent event) {
         if (event.getType() != DOOR_CLOSED) return;
         
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event.getObjectId())) {
-                    // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                    // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                    if (room.getName().equals("hall")) {
-                        smartHome.turnOffAllLights();
-                    }
-                }
+        smartHome.execute(new Action<Door, Room>() {
+            public boolean checkArgs(Class t1, Class t2) {
+                return t1 == Door.class && t2 == Room.class;
             }
-        }
+            public void run(Door door, Room room) {
+                // если мы получили событие о закрытии двери в холле - это значит, что была закрыта входная дверь.
+                // в этом случае мы хотим автоматически выключить свет во всём доме (это же умный дом!)
+                if (!door.getId().equals(event.getObjectId())) {
+                    return;
+                }
+                if (!room.getName().equals("hall")) {
+                    return;
+                }
+                smartHome.turnOffAllLights();
+            }
+        });
     }
 }

@@ -7,13 +7,16 @@ public class DoorSensorEventProcessor implements SensorEventProcessor {
     public void processEvent(SmartHome smartHome, SensorEvent event) {
         if (!isDoorEvent(event)) return;
         
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
+        smartHome.execute(new Action<Door, Room>() {
+            public boolean checkArgs(Class t1, Class t2) {
+                return t1 == Door.class && t2 == Room.class;
+            }
+            public void run(Door door, Room room) {
                 if (door.getId().equals(event.getObjectId())) {
                     setDoorState(room, door, event.getType() == DOOR_OPEN);
                 }
             }
-        }
+        });
     }
 
     private static void setDoorState(Room room, Door door, boolean state) {
