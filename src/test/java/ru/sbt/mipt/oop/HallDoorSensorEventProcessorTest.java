@@ -37,6 +37,6 @@ public class HallDoorSensorEventProcessorTest {
         processor.processEvent(testHome, event);
         
         // lights should turn off
-        Assert.assertTrue(!light.isOn());
+        Assert.assertFalse(light.isOn());
     }
 }

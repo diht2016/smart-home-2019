@@ -27,15 +27,4 @@ public class SmartHome {
             room.execute(action);
         }
     }
-
-    public void turnOffAllLights() {
-        execute(new Action<Light, Room>() {
-            public boolean checkArgs(Class t1, Class t2) {
-                return t1 == Light.class && t2 == Room.class;
-            }
-            public void run(Light light, Room room) {
-                light.turnOff();
-            }
-        });
-    }
 }

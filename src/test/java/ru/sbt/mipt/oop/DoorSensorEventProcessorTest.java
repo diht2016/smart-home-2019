@@ -35,6 +35,6 @@ public class DoorSensorEventProcessorTest {
         SensorEvent event = new SensorEvent(DOOR_CLOSED, "1");
         processor.processEvent(testHome, event);
         
-        Assert.assertTrue(!door.isOpen());
+        Assert.assertFalse(door.isOpen());
     }
 }

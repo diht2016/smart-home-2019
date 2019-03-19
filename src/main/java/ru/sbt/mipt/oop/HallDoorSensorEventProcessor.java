@@ -19,8 +19,22 @@ public class HallDoorSensorEventProcessor implements SensorEventProcessor {
                 if (!room.getName().equals("hall")) {
                     return;
                 }
-                smartHome.turnOffAllLights();
+
+                smartHome.execute(new Action<Light, Room>() {
+                    public boolean checkArgs(Class t1, Class t2) {
+                        return t1 == Light.class && t2 == Room.class;
+                    }
+                    public void run(Light light, Room room) {
+                        turnOffLight(light);
+                    }
+                });
             }
         });
+    }
+    
+    public void turnOffLight(Light light) {
+        light.setOn(false);
+        SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
+        SensorCommandExecutor.executeCommand(command);
     }
 }

@@ -35,6 +35,6 @@ public class LightSensorEventProcessorTest {
         SensorEvent event = new SensorEvent(LIGHT_OFF, "1");
         processor.processEvent(testHome, event);
         
-        Assert.assertTrue(!light.isOn());
+        Assert.assertFalse(light.isOn());
     }
 }
