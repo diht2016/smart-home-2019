@@ -32,14 +32,14 @@ public class Room {
     }
 
     public void execute(Action action) {
-        if (action.checkArgs(Light.class, Room.class)) {
+        if (action.checkArgs(Light.class)) {
             for (Light light : lights) {
-                action.run(light, this);
+                action.run(light);
             }
         }
-        if (action.checkArgs(Door.class, Room.class)) {
+        if (action.checkArgs(Door.class)) {
             for (Door door : doors) {
-                action.run(door, this);
+                action.run(door);
             }
         }
     }
