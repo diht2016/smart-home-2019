@@ -21,4 +21,10 @@ public class SmartHome {
     public Collection<Room> getRooms() {
         return rooms;
     }
+    
+    public void execute(Action action) {
+        for (Room room : rooms) {
+            room.execute(action);
+        }
+    }
 }

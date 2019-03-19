@@ -8,6 +8,12 @@ public class Room {
     private String name;
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
+        for (Light light : lights) {
+            light.setRoom(this);
+        }
+        for (Door door : doors) {
+            door.setRoom(this);
+        }
         this.lights = lights;
         this.doors = doors;
         this.name = name;
@@ -23,5 +29,18 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    public void execute(Action action) {
+        if (action.checkArgs(Light.class)) {
+            for (Light light : lights) {
+                action.run(light);
+            }
+        }
+        if (action.checkArgs(Door.class)) {
+            for (Door door : doors) {
+                action.run(door);
+            }
+        }
     }
 }
