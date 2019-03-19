@@ -13,7 +13,7 @@ public class LightSensorEventProcessorTest {
         SensorEventProcessor processor = new LightSensorEventProcessor();
         
         Light light = new Light("1", false);
-        Door door = new Door(false, "1");
+        Door door = new Door("1", false);
         Room room = new Room(Arrays.asList(light), Arrays.asList(door), "hall");
         SmartHome testHome = new SmartHome(Arrays.asList(room));
         
@@ -28,7 +28,7 @@ public class LightSensorEventProcessorTest {
         SensorEventProcessor processor = new LightSensorEventProcessor();
         
         Light light = new Light("1", true);
-        Door door = new Door(false, "1");
+        Door door = new Door("1", false);
         Room room = new Room(Arrays.asList(light), Arrays.asList(door), "hall");
         SmartHome testHome = new SmartHome(Arrays.asList(room));
         

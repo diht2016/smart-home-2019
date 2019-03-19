@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop;
 
 public class Light {
-    private boolean isOn;
     private final String id;
+    private boolean isOn;
 
     public Light(String id, boolean isOn) {
         this.id = id;
