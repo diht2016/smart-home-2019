@@ -32,9 +32,10 @@ public class Application {
     
     private static Collection<SensorEventProcessor> configureSensorEventProcessors() {
         Collection<SensorEventProcessor> list = new ArrayList<>();
-        list.add(new LightSensorEventProcessor());
-        list.add(new DoorSensorEventProcessor());
-        list.add(new HallDoorSensorEventProcessor());
+        list.add(new AlarmSensorEventProcessor());
+        list.add(new SensorEventAlarmDecorator(new LightSensorEventProcessor()));
+        list.add(new SensorEventAlarmDecorator(new DoorSensorEventProcessor()));
+        list.add(new SensorEventAlarmDecorator(new HallDoorSensorEventProcessor()));
         return list;
     }
 }
