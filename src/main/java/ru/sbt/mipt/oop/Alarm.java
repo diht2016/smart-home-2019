@@ -4,49 +4,34 @@ import static ru.sbt.mipt.oop.AlarmState.*;
 
 public class Alarm {
     private AlarmState state;
-    private String code;
 
     public Alarm() {
-        state = ALARM_INACTIVE;
+        state = new AlarmStateInactive(this);
     }
 
     public boolean isInactive() {
-        return state == ALARM_INACTIVE;
+        return state instanceof AlarmStateInactive;
     }
 
     public boolean isTriggered() {
-        return state == ALARM_TRIGGERED;
+        return state instanceof AlarmStateActiveTriggered;
     }
 
     public void activate(String input) {
-        if (!isInactive()) {
-            return;
-        }
-        if (input == null) {
-            return;
-        }
-        
-        state = ALARM_READY;
-        code = input;
+        setState(state.activate(input));
     }
 
     public void deactivate(String input) {
-        if (isInactive()) {
-            return;
-        }
-        
-        if (code.equals(input)) {
-            state = ALARM_INACTIVE;
-        } else {
-            trigger();
-        }
+        setState(state.deactivate(input));
     }
 
     public void trigger() {
-        if (isInactive()) {
-            return;
+        setState(state.trigger());
+    }
+    
+    private void setState(AlarmState state) {
+        if (state != null) {
+            this.state = state;
         }
-        state = ALARM_TRIGGERED;
-        System.out.println("Sending SMS");
     }
 }
