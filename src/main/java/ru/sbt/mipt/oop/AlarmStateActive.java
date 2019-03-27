@@ -8,6 +8,7 @@ public class AlarmStateActive extends AlarmState {
         this.code = code;
     }
     
+    @Override
     public AlarmState deactivate(String input) {
         if (code.equals(input)) {
             return new AlarmStateInactive(alarm);
@@ -16,6 +17,7 @@ public class AlarmStateActive extends AlarmState {
         }
     }
     
+    @Override
     public AlarmState trigger() {
         System.out.println("Sending SMS");
         return new AlarmStateActiveTriggered(alarm, code);

@@ -5,6 +5,7 @@ public class AlarmStateInactive extends AlarmState {
         super(alarm);
     }
     
+    @Override
     public AlarmState activate(String input) {
         if (input == null) {
             return null;
