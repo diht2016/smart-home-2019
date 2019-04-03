@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.coolcompany.smarthome.events.SensorEventsManager;
+
 public class Application {
 
     private static SmartHomeLoader loader = new JsonFileSmartHomeLoader();
@@ -15,19 +17,22 @@ public class Application {
     }
 
     private static void processAllEvents(SmartHome smartHome) {
-        SensorEvent event = null;
         Collection<SensorEventProcessor> processors = configureSensorEventProcessors();
-        while (true) {
-            event = eventSource.getNextSensorEvent();
+        
+        SensorEventsManager sensorEventsManager = new SensorEventsManager();
+        sensorEventsManager.registerEventHandler(inputEvent -> {
+            SensorEvent event = SensorEventAdapter.from(inputEvent);
             if (event == null) {
-                break;
+                return;
             }
+            
             System.out.println("Got event: " + event);
             
             for (SensorEventProcessor processor : processors) {
                 processor.processEvent(smartHome, event);
             }
-        }
+        });
+        sensorEventsManager.start();
     }
     
     private static Collection<SensorEventProcessor> configureSensorEventProcessors() {
