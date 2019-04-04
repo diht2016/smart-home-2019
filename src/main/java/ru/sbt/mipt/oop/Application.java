@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.coolcompany.smarthome.events.SensorEventsManager;
+import rc.RemoteControl;
+import rc.RemoteControlRegistry;
 
 public class Application {
 
@@ -13,6 +15,7 @@ public class Application {
     
     public static void main(String... args) throws IOException {
         SmartHome smartHome = loader.loadSmartHome();
+        configureRemoteControl(smartHome);
         processAllEvents(smartHome);
     }
 
@@ -33,6 +36,20 @@ public class Application {
             }
         });
         sensorEventsManager.start();
+    }
+    
+    private static void configureRemoteControl(SmartHome smartHome) {
+        CustomizableRemoteControl rc = new CustomizableRemoteControl();
+        RemoteControlRegistry registry = new RemoteControlRegistry();
+        String rcId = "rc1";
+        rc.setCommand("1", new RCCommandTurnOnAllLights(smartHome));
+        rc.setCommand("2", new RCCommandTurnOffAllLights(smartHome));
+        rc.setCommand("3", new RCCommandTurnOnHallLights(smartHome));
+        rc.setCommand("A", new RCCommandCloseHallDoors(smartHome));
+        rc.setCommand("B", new RCCommandActivateAlarm(smartHome, "rc code"));
+        rc.setCommand("C", new RCCommandTriggerAlarm(smartHome, "rc code"));
+        
+        registry.registerRemoteControl(rc, rcId);
     }
     
     private static Collection<SensorEventProcessor> configureSensorEventProcessors() {
